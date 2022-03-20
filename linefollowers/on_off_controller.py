@@ -57,10 +57,7 @@ def calibrateSP():
     return (black + white) / 2
 
 if __name__ == "__main__": 
-    
     set_point = calibrateSP()
-    display_print(str(set_point))
-    sleep(2)
 
     while True:
         DRIVE_ANGLE = prompt_set_value(DRIVE_ANGLE, 1, "Angle:")
