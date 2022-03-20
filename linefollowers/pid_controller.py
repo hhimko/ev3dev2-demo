@@ -7,15 +7,16 @@ from ev3dev2.sensor.lego import ColorSensor
 from ev3dev2.display import Display
 from ev3dev2.button import Button
 
-''' ON-OFF CONTROL '''
-DRIVE_SPEED = 55
-DRIVE_ANGLE = 40
+''' PID CONTROL '''
+DRIVE_SPEED = 50
+CONST_KP = 1.35
+CONST_KI = 0.5
+CONST_KD = 0.85
 
 drive = MoveSteering(OUTPUT_A, OUTPUT_D)
 color = ColorSensor(INPUT_1)
 display = Display()
 button = Button()
-
 
 def clamp(val, _min, _max):
     return min(_max, max(_min, val))
@@ -44,7 +45,7 @@ def prompt_set_value(val, epsilon, prompt_mess: str):
         if "enter" in bp:
             return val
         sleep(0.05) # dont let the loop consume 100% of CPU
-        
+
 def calibrateSP():
     display_print('Calibrate white.')
     button.wait_for_bump( ["enter"] )
@@ -55,22 +56,31 @@ def calibrateSP():
     black = read_brightness()
     
     return (black + white) / 2
+    
 
 if __name__ == "__main__": 
     set_point = calibrateSP()
 
     while True:
-        DRIVE_ANGLE = prompt_set_value(DRIVE_ANGLE, 1, "Angle:")
+        CONST_KP = prompt_set_value(CONST_KP, 0.1, "Kp:")
+        CONST_KI = prompt_set_value(CONST_KI, 0.1, "Ki:")
+        CONST_KD = prompt_set_value(CONST_KD, 0.1, "Kd:")
         DRIVE_SPEED = prompt_set_value(DRIVE_SPEED, 1, "Speed:")
         
         display_print('Press enter to start') 
         button.wait_for_bump(["enter"])
-
+        
+        e_prev = E = 0
         while not (button.enter or color.color_name == "Red"):
             process_variable = read_brightness()
-            error = set_point - process_variable
+            e_curr = set_point - process_variable
             
-            drive.on((-1 + 2*(error>0)) * DRIVE_ANGLE, DRIVE_SPEED)
+            E += e_curr # discrete integral term
+            e_prim = e_curr - e_prev # derivative term
+            e_prev = e_curr
+            
+            u = CONST_KP * e_curr + CONST_KI * E + CONST_KD * e_prim # PID output 
+            drive.on(clamp(u, -100, 100), DRIVE_SPEED)
             sleep(0.005) # dont let the loop consume 100% of CPU
             
         drive.off()
