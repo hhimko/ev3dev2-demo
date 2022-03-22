@@ -34,6 +34,7 @@ def prompt_set_value(val, epsilon, prompt_mess: str):
         display_print(prompt_mess)
         display_print(str(val), row=1, clear_screen=False)
     
+    prompt()
     while True:
         bp = button.buttons_pressed
         if "left" in bp:
