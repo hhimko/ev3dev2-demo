@@ -82,6 +82,5 @@ if __name__ == "__main__":
             
             u = CONST_KP * e_curr + CONST_KI * E + CONST_KD * e_prim # PID output 
             drive.on(clamp(u, -100, 100), DRIVE_SPEED)
-            sleep(0.005) # dont let the loop consume 100% of CPU
             
         drive.off()

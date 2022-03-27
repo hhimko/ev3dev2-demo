@@ -72,6 +72,5 @@ if __name__ == "__main__":
             error = set_point - process_variable
             
             drive.on((-1 + 2*(error>0)) * DRIVE_ANGLE, DRIVE_SPEED)
-            sleep(0.005) # dont let the loop consume 100% of CPU
             
         drive.off()
