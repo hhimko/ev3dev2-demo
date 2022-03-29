@@ -8,13 +8,9 @@ from ev3dev2.display import Display
 from ev3dev2.button import Button
 
 ''' PID CONTROL '''
-DRIVE_SPEED = 50
-CONST_KP = 1.35
-CONST_KI = 0.5
-CONST_KD = 0.85
-
 drive = MoveSteering(OUTPUT_A, OUTPUT_D)
 color = ColorSensor(INPUT_1)
+color.mode = ColorSensor.MODE_COL_REFLECT
 display = Display()
 button = Button()
 
@@ -22,7 +18,7 @@ def clamp(val, _min, _max):
     return min(_max, max(_min, val))
 
 def read_brightness():
-    return color.hls[1]
+    return color.reflected_light_intensity
 
 def display_print(message: str, row=0, clear_screen=True):
     assert 0 <= row < 12
