@@ -1,2 +1,1 @@
-from controllers.gotogoal import GTGController
-from robot import EducatorRobot
+from model.educator import EducatorRobot

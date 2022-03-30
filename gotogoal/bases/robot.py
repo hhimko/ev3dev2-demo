@@ -1,4 +1,4 @@
 from abc import ABC, abstractmethod
 
-class BaseController(ABC):
+class Robot(ABC):
     pass

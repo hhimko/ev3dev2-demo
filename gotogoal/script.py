@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
-from model import EducatorRobot, GTGController
+from controllers import GTGController
+from model import EducatorRobot
+from model.geometry import Point
 
 # define a world of point coordinates for the
 # robot to move through
-waypoints = [(100,0), (50, 50)]
+waypoints = [Point(100,0), Point(50, 50)]
 
-robot = EducatorRobot()
+robot = EducatorRobot(pos=Point(0,0))
 controller = GTGController(robot)
 
 for wp in waypoints:
-    controller.execute(wp)
+    controller.execute()
