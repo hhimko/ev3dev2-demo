@@ -1,6 +1,7 @@
 from __future__ import annotations
-from utils.utils import Numeric
 from math import sqrt
+
+from utils.utils import Numeric
 
 
 class Point:

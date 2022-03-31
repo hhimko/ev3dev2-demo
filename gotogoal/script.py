@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from model.robots.simulator import SimulatorRobot
+from model.robots import SimulatorRobot, EducatorRobot
 from controllers import GTGController
 from model.geometry import Point
 

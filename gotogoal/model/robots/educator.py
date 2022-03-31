@@ -1,4 +1,7 @@
-from ev3dev2.motor import MoveSteering, OUTPUT_A, OUTPUT_D # type: ignore
+try:
+    from ev3dev2.motor import MoveSteering, OUTPUT_A, OUTPUT_D # type: ignore
+except ImportError:
+    pass
 
 from model.geometry import Point, Circle
 from utils.utils import Numeric, clamp
