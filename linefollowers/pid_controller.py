@@ -8,6 +8,11 @@ from ev3dev2.display import Display
 from ev3dev2.button import Button
 
 ''' PID CONTROL '''
+CONST_KP    = 2.15
+CONST_KI    = 0.1
+CONST_KD    = 0.05
+DRIVE_SPEED = 65
+        
 drive = MoveSteering(OUTPUT_A, OUTPUT_D)
 color = ColorSensor(INPUT_1)
 color.mode = ColorSensor.MODE_COL_REFLECT
@@ -59,9 +64,9 @@ if __name__ == "__main__":
     set_point = calibrateSP()
 
     while True:
-        CONST_KP = prompt_set_value(CONST_KP, 0.1, "Kp:")
-        CONST_KI = prompt_set_value(CONST_KI, 0.1, "Ki:")
-        CONST_KD = prompt_set_value(CONST_KD, 0.1, "Kd:")
+        CONST_KP = prompt_set_value(CONST_KP, 0.05, "Kp:")
+        CONST_KI = prompt_set_value(CONST_KI, 0.05, "Ki:")
+        CONST_KD = prompt_set_value(CONST_KD, 0.05, "Kd:")
         DRIVE_SPEED = prompt_set_value(DRIVE_SPEED, 1, "Speed:")
         
         display_print('Press enter to start') 
