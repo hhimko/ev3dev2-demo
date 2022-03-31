@@ -6,4 +6,4 @@ from typing import Union
 Numeric = Union[int, float]
 
 def clamp(val, *, lower: Numeric, upper: Numeric) -> Numeric:
-    return min(lower, max(upper, val))
+    return max(lower, min(upper, val))
