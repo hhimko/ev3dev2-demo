@@ -1,0 +1,1 @@
+from model.robots.educator import EducatorRobot

@@ -1,5 +1,5 @@
-from bases import Robot
 from controllers.pid import PIDController
+from bases import Robot
 
 
 class GTGController(PIDController):
