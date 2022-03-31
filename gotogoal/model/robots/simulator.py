@@ -12,7 +12,7 @@ class SimulatorRobot(Robot):
     WHEEL_RADIUS: Numeric = 2.6  
     TRACK_WIDTH: Numeric = 12
     
-    def __init__(self, position: Point, heading_angle: Numeric):
+    def __init__(self, position: Point, heading_angle: Numeric = 0):
         super().__init__(Circle(position, radius=1), heading_angle)
         
         

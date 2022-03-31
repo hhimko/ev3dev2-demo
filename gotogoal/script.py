@@ -8,8 +8,11 @@ waypoints = (
     Point(100, 0), Point(50, 50)
 )
 
-robot = SimulatorRobot(position=Point(0,0), heading_angle=0)
-controller = GTGController(robot)
+# create a robot, that we'll be controlling with a go-to-goal controller
+robot = SimulatorRobot(position=Point(0,0))
 
-for wp in waypoints:
-    controller.execute()
+with GTGController(robot) as gotogoal:
+    # call GTGController on each waypoint, to drive the robot throught them
+    for wp in waypoints:
+        gotogoal(wp)
+        print(f"waypoint {wp} reached!")
