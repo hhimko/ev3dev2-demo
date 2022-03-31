@@ -12,3 +12,6 @@ class Point:
         sx, sy = self.x, self.y
         ox, oy = other.x, other.y
         return sqrt((sx - ox)**2 + (sy - oy)**2)
+    
+    def __repr__(self):
+        return self.__class__.__name__ + f"({self.x}, {self.y})"

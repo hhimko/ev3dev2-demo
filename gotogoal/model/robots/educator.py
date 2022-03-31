@@ -2,7 +2,7 @@ from ev3dev2.motor import MoveSteering, OUTPUT_A, OUTPUT_D # type: ignore
 
 from model.geometry import Point, Circle
 from utils.utils import Numeric, clamp
-from bases.robot import Robot
+from bases import Robot
 
 
 class EducatorRobot(Robot):
