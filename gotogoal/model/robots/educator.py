@@ -18,14 +18,14 @@ class EducatorRobot(Robot):
     TRACK_WIDTH: Numeric = 12
     
     
-    def __init__(self, position: Point, heading_angle: Numeric):
+    def __init__(self, position: Point, heading_angle: Numeric = 0, speed = 50):
         bounds = Circle(position, radius=self.TRACK_WIDTH/2)
-        super().__init__(bounds, heading_angle)
+        super().__init__(bounds, heading_angle, speed)
         
         self.drive = MoveSteering(OUTPUT_A, OUTPUT_D)
         
-    def move(self, direction: Numeric, power: Numeric):
-        self.drive.on(clamp(direction, lower=-100, upper=100), power)
+    def move(self, direction: Numeric):
+        self.drive.on(clamp(direction, lower=-100, upper=100), self.speed)
         
     def stop(self):
         self.drive.off()

@@ -12,12 +12,12 @@ class SimulatorRobot(Robot):
     WHEEL_RADIUS: Numeric = 2.6  
     TRACK_WIDTH: Numeric = 12
     
-    def __init__(self, position: Point, heading_angle: Numeric = 0):
-        super().__init__(Circle(position, radius=1), heading_angle)
+    def __init__(self, position: Point, heading_angle: Numeric = 0, speed: Numeric = 50):
+        super().__init__(Circle(position, radius=1), heading_angle, speed)
         
         
-    def move(self, direction: Numeric, power: Numeric):
-        pow_left, pow_right = self._calc_steering(direction, power)
+    def move(self, direction: Numeric):
+        pow_left, pow_right = self._calc_steering(direction, self.speed)
         
         dist_left, dist_right = self._pow_to_wheel_dist(pow_left, pow_right)
         dist_center = (dist_right + dist_left) / self.TRACK_WIDTH

@@ -12,7 +12,7 @@ waypoints = (
 robot = SimulatorRobot(position=Point(0,0))
 
 with GTGController(robot) as gotogoal:
-    # call GTGController on each waypoint, to drive the robot throught them
+    # call GTGController on each waypoint, to make it drive the robot throught them
     for wp in waypoints:
         gotogoal(wp)
-        print(f"waypoint {wp} reached!")
+        print(f"Waypoint {wp} reached!")
