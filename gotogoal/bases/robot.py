@@ -11,13 +11,16 @@ class Robot(ABC):
         self.angle = angle
         self.speed = speed
     
+    
     @property
     def position(self) -> Point:
         return self.geometry.position
     
+    
     @abstractmethod
     def move(self, direction: float):
         pass
+    
     
     @abstractmethod
     def stop(self):
