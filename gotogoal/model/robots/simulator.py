@@ -9,7 +9,7 @@ from bases import Robot
 class SimulatorRobot(Robot):
     ''' Concrete Robot subclass representing an idealised unicycle model.
     
-        SimulatorRobot is based on the real life LEGO MINDSTORMS Emulator
+        SimulatorRobot is based on the real life LEGO MINDSTORMS Educator
         robot. '''
     
     PULSES_PER_REVOLUTION: float = 360 # wheel encoder pulses per full rotation
