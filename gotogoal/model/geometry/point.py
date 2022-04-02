@@ -5,6 +5,8 @@ from utils.utils import Numeric
 
 
 class Point:
+    ''' Simple structure defining a 2D space coordinate. '''
+    
     def __init__(self, x: Numeric, y: Numeric):
         self.x = x
         self.y = y
@@ -15,4 +17,4 @@ class Point:
         return sqrt((sx - ox)**2 + (sy - oy)**2)
     
     def __repr__(self):
-        return self.__class__.__name__ + f"({self.x}, {self.y})"
+        return self.__class__.__name__ + f"(x={self.x}, y={self.y})"

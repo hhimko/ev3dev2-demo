@@ -4,6 +4,8 @@ from bases.robot import Robot
 
 
 class Controller(ABC):
+    ''' Abstract Controller class. '''
+    
     def __init__(self, robot: Robot):
         self.robot = robot
     
@@ -13,6 +15,9 @@ class Controller(ABC):
     
     @abstractmethod
     def execute(self):
+        ''' Alias for the main function of a particular Controller implementation,
+            e.g. PIDController.execute() is simply forwarded to PIDController.PID().
+            Controller.execute() provides a naming compability for all controllers. '''
         pass
     
     @abstractmethod
@@ -20,11 +25,10 @@ class Controller(ABC):
         pass
     
     def __enter__(self):
+        ''' Most Controller subclasses naturally require a setup/teardown funtionality,
+            hence a context manager protocol is used in all controller implementations. '''
         self._on_enter()
         return self
         
-    def __exit__(self, *exc):
+    def __exit__(self, *exception_handlers):
         self._on_exit()
-        
-    def __call__(self, *args, **kwargs):
-        self.execute(*args, **kwargs)

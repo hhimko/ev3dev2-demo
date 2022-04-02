@@ -14,3 +14,7 @@ class Circle:
     @property
     def y(self):
         return self.position.y
+    
+    def __repr__(self):
+        return  self.__class__.__name__ + \
+                f"(pos={repr(self.position)}, radius={self.radius})"

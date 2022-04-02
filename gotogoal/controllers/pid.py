@@ -3,6 +3,8 @@ from bases import Controller, Robot
 from utils.utils import Numeric
 
 class PIDController(Controller):
+    ''' Concrete Controller implementation of the PID controller behavior. '''
+    
     def __init__(self, robot: Robot, *, P: Numeric = 1, I: Numeric = 0, D: Numeric = 0):
         super().__init__(robot)
         self.P = P
@@ -13,7 +15,7 @@ class PIDController(Controller):
         
     @property
     def _control_variable(self) -> Numeric:
-        ''' Calculates the current PID output variable '''
+        ''' Calculates the current PID output variable. '''
         de = self._vars['derivative']
         E = self._vars['integral']
         e = self._vars['error']
@@ -21,26 +23,29 @@ class PIDController(Controller):
         return self.P * e + self.I * E + self.D * de
     
     def reset(self):
-        """ Populates PID variables with default values """
+        """ Populates PID variables with default values. """
         self._vars: Dict[str, Numeric] = {
             'derivative': 0,
             'integral':   0,
             'error':      0
         }
-    
-    def _on_enter(self):
-        self.reset()
-    
-    def execute(self, error: Numeric):
+        
+    def PID(self, error: Numeric):
         self._update_vars(error)
         
         cv = self._control_variable
         self.robot.move(cv)
         
-    def _on_exit(self):
-        self.robot.stop()
-        
     def _update_vars(self, error: Numeric):
         self._vars['integral']  += error
         self._vars['derivative'] = error - self._vars['err_last']
         self._vars['error']      = error
+        
+    def execute(self, error: Numeric):
+        self.PID(error)
+    
+    def _on_enter(self):
+        self.reset()
+        
+    def _on_exit(self):
+        self.robot.stop()

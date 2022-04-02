@@ -5,6 +5,8 @@ from utils.utils import Numeric
 
 
 class Robot(ABC):
+    ''' Abstract Robot class. '''
+    
     def __init__(self, geometry: Circle, angle: Numeric, speed: Numeric):
         self.geometry = geometry
         self.angle = angle
