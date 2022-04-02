@@ -1,13 +1,12 @@
 from abc import ABC, abstractmethod
 
 from model.geometry import Circle, Point
-from utils.utils import Numeric
 
 
 class Robot(ABC):
     ''' Abstract Robot class. '''
     
-    def __init__(self, geometry: Circle, angle: Numeric, speed: Numeric):
+    def __init__(self, geometry: Circle, angle: float, speed: float):
         self.geometry = geometry
         self.angle = angle
         self.speed = speed
@@ -17,7 +16,7 @@ class Robot(ABC):
         return self.geometry.position
     
     @abstractmethod
-    def move(self, direction: Numeric):
+    def move(self, direction: float):
         pass
     
     @abstractmethod

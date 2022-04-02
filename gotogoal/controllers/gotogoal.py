@@ -23,11 +23,18 @@ class GTGController(PIDController):
         return circle_point_collision(self.robot.geometry, goal)
         
     def gotogoal(self, goal: Point):
-        error = self.robot.position.dist(goal)
-        super().execute(error)
+        super().execute(0)
         
-    def execute(self, goal: Point):
-        self.gotogoal(goal)
+    def execute(self, *args, **kwargs):
+        ''' GTGController.execute() is forwarded to GTGController.gotogoal().
+        
+            Unless you need polymorphism between multiple Controller subclasses,
+            you should simply call GTGController.gotogoal() for clarity. '''
+            
+        self.gotogoal(*args, **kwargs)
+        
+    def _angle_to_goal(self, goal: Point) -> float:
+        return 0
          
     def _on_enter(self):
         return super()._on_enter()

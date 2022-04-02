@@ -14,5 +14,9 @@ robot = SimulatorRobot(position=Point(0,0))
 with GTGController(robot) as controller:
     # call GTGController.gotogoal on each waypoint until it's reached by the robot
     for waypoint in waypoints:
+        print(f"Moving to {waypoint}..")
+        
         while not controller.reached(waypoint):
             controller.gotogoal(waypoint)
+            
+        print("Waypoint successfully reached!")

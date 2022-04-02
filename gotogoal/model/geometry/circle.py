@@ -1,9 +1,10 @@
-from utils.utils import Numeric
 from model.geometry import Point
 
 
 class Circle:
-    def __init__(self, pos: Point, radius: Numeric):
+    ''' Basic structure defining a circle in 2D space. '''
+    
+    def __init__(self, pos: Point, radius: float):
         self.position = pos
         self.radius = radius
         
