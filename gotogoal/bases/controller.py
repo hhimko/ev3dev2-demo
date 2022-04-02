@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 
 from bases.robot import Robot
-from gotogoal.controllers.pid import PIDController
 
 
 class Controller(ABC):

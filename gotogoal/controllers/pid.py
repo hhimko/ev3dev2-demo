@@ -38,7 +38,7 @@ class PIDController(Controller):
         
     def _update_vars(self, error: float):
         self._vars['integral']  += error
-        self._vars['derivative'] = error - self._vars['err_last']
+        self._vars['derivative'] = error - self._vars['error']
         self._vars['error']      = error
         
     def execute(self, *args, **kwargs):

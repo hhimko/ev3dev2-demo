@@ -2,21 +2,21 @@ from math import sin, cos, pi as PI
 from typing import Tuple
 
 from model.geometry import Point, Circle
-from utils.utils import Numeric, clamp
+from utils.utils import clamp
 from bases import Robot 
 
 
 class SimulatorRobot(Robot):
     
-    PULSES_PER_REVOLUTION: Numeric = 360 # wheel encoder pulses per full rotation
-    WHEEL_RADIUS: Numeric = 2.6  
-    TRACK_WIDTH: Numeric = 12
+    PULSES_PER_REVOLUTION: float = 360 # wheel encoder pulses per full rotation
+    WHEEL_RADIUS: float = 2.6  
+    TRACK_WIDTH: float = 12
     
-    def __init__(self, position: Point, heading_angle: Numeric = 0, speed: Numeric = 50):
+    def __init__(self, position: Point, heading_angle: float = 0, speed: float = 50):
         super().__init__(Circle(position, radius=1), heading_angle, speed)
         
         
-    def move(self, direction: Numeric):
+    def move(self, direction: float):
         pow_left, pow_right = self._calc_steering(direction, self.speed)
         
         dist_left, dist_right = self._pow_to_wheel_dist(pow_left, pow_right)
@@ -32,12 +32,12 @@ class SimulatorRobot(Robot):
         return
     
     @classmethod
-    def _pow_to_wheel_dist(cls, pow_left: Numeric, pow_right: Numeric) -> Tuple[Numeric, Numeric]:
+    def _pow_to_wheel_dist(cls, pow_left: float, pow_right: float) -> Tuple[float, float]:
         dist_per_unit = 2 * PI * cls.WHEEL_RADIUS / cls.PULSES_PER_REVOLUTION
         return (pow_left * dist_per_unit, pow_right * dist_per_unit)
     
     @staticmethod
-    def _calc_steering(direction: Numeric, power: Numeric) -> Tuple[Numeric, Numeric]:
+    def _calc_steering(direction: float, power: float) -> Tuple[float, float]:
         """ Emulates the ev3dev2.motor.MoveSteering behavior """
         steering = 1 - abs(clamp(direction, lower=-100, upper=100)) / 50
         return (power, power * steering) if direction > 0 else (power * steering, power)
