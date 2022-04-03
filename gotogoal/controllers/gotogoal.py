@@ -18,8 +18,8 @@ class GTGController(PIDController):
         A robot is said to have reached a particular point, if at the given
         point in time it lays within the boundry box of the robot. '''
     
-    def __init__(self, robot: Robot, **kwargs):
-        super().__init__(robot, **kwargs)
+    def __init__(self, robot: Robot, *, P: float = 100/PI, I: float = 0, D: float = 0):
+        super().__init__(robot, P=P, I=I, D=D)
         
         
     def reached(self, goal: Point) -> bool:
@@ -29,7 +29,9 @@ class GTGController(PIDController):
         
         
     def gotogoal(self, goal: Point):
-        error = self.robot.angle - self._angle_to_goal(goal) 
+        self.robot.update_position()
+        
+        error = self.robot.angle - self._angle_to_goal(goal)
         super().PID(radians_normalize(error))
         
         

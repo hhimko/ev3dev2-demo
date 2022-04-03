@@ -18,6 +18,11 @@ class Robot(ABC):
     
     
     @abstractmethod
+    def update_position(self):
+        pass
+    
+    
+    @abstractmethod
     def move(self, direction: float):
         pass
     

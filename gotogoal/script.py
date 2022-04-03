@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-from time import sleep
-from math import pi as PI
-
 from model.robots import SimulatorRobot, EducatorRobot
 from controllers import GTGController
 from model.geometry import Point
@@ -15,7 +12,7 @@ waypoints = (
 # create a robot, that we'll be controlling with a go-to-goal controller
 robot = SimulatorRobot(position=Point(0,0))
 
-with GTGController(robot, P=100/PI, I=0, D=0) as controller:
+with GTGController(robot) as controller:
     # call GTGController.gotogoal on each waypoint until it's reached by the robot
     for waypoint in waypoints:
         print(f"[INFO] Moving to {waypoint}..")
