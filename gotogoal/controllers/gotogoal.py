@@ -18,7 +18,7 @@ class GTGController(PIDController):
         A robot is said to have reached a particular point, if at the given
         point in time it lays within the boundry box of the robot. '''
     
-    def __init__(self, robot: Robot, *, P: float = 100/PI, I: float = 0, D: float = 0):
+    def __init__(self, robot: Robot, P: float = 100/PI, I: float = 0, D: float = 0):
         super().__init__(robot, P=P, I=I, D=D)
         
         

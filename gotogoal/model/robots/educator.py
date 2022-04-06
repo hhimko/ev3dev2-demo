@@ -16,9 +16,9 @@ class EducatorRobot(Robot):
     
         EducatorRobot assumes it's run on a real LEGO MINDSTORMS EV3 Educator robot. '''
         
-    PULSES_PER_REVOLUTION: float = 360 # wheel encoder pulses per full rotation
-    WHEEL_RADIUS: float = 2.6  
-    TRACK_WIDTH: float = 12
+    PULSES_PER_REVOLUTION = 360 # wheel encoder pulses per full rotation
+    WHEEL_RADIUS = 2.6  
+    TRACK_WIDTH = 12
     
     def __init__(self, position: Point, heading_angle: float = 0, speed = 50):
         bounds = Circle(position, radius=self.TRACK_WIDTH/2)

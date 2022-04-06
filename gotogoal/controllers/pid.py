@@ -23,7 +23,7 @@ class PIDController(Controller):
         You can read more about PID controllers here: 
             https://en.wikipedia.org/wiki/PID_controller '''
             
-    def __init__(self, robot: Robot, *, P: float = 1, I: float = 0, D: float = 0):
+    def __init__(self, robot: Robot, P: float = 1, I: float = 0, D: float = 0):
         super().__init__(robot)
         self.P = P
         self.I = I
@@ -46,7 +46,7 @@ class PIDController(Controller):
     def reset(self):
         ''' Populates PID variables with default values. '''
         
-        self._vars: Dict[str, float] = {
+        self._vars = {
             'derivative': 0,
             'integral':   0,
             'error':      0

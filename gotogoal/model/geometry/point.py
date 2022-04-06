@@ -1,6 +1,3 @@
-from __future__ import annotations
-
-
 class Point:
     ''' Basic container structure defining a 2D space coordinate. '''
     
@@ -10,4 +7,4 @@ class Point:
     
     
     def __repr__(self):
-        return self.__class__.__name__ + f"(x={self.x}, y={self.y})"
+        return self.__class__.__name__ + "(x={}, y={})".format(self.x, self.y)
