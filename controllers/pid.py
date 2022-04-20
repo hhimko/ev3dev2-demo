@@ -1,4 +1,3 @@
-from typing import Dict
 from bases import Controller, Robot
 
 
@@ -70,8 +69,8 @@ class PIDController(Controller):
         ''' `PIDController.execute()` is forwarded to `PIDController.PID()`.
         
             Unless you need polymorphism between multiple Controller subclasses,
-            you should simply call `PIDController.PID()` for clarity. '''
-            
+            you should simply call `PIDController.PID()` for clarity. 
+        '''    
         self.PID(*args, **kwargs)
         
     
