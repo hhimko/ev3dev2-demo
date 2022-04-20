@@ -30,7 +30,7 @@ set_point = (black + white) / 2
 
 # wrap the robot around a chosen controller class 
 with OnOffController(robot, angle=60) as controller:
-    # continuously read the sensor and move the robot
+    # continuously read the sensor and compute the error
     while not (color.color_name == "Red" or button.enter):
         error = set_point - color.reflected_light_intensity
         controller.on_off(error)
