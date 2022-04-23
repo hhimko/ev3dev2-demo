@@ -28,5 +28,4 @@ with AOController(robot) as controller:
         controller.update(sensors)
             
         print("heading: (x={:07.3f}, y={:07.3f})".format(*controller.heading.coords))
-        break
     
