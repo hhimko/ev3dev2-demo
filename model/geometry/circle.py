@@ -1,10 +1,10 @@
-from model.geometry import Point
+from model.geometry import Vec2
 
 
 class Circle:
     ''' Basic structure defining a circle in 2D space. '''
     
-    def __init__(self, position: Point, radius: float):
+    def __init__(self, position: Vec2, radius: float):
         self.position = position
         self.radius = radius
         
