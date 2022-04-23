@@ -1,4 +1,5 @@
 from typing import Union, Tuple
+from math import sin, cos, radians, degrees
 
 from model.geometry.point import Vec2
 
@@ -14,6 +15,26 @@ class DistanceSensor:
         
         self.position = position
         self.angle = angle
+        
+        
+    @property
+    def angle(self) -> float:
+        return degrees(self._angle)
+    
+    
+    @angle.setter
+    def angle(self, value: float) -> None:
+        self._angle = radians(value)
+        
+        
+    @property
+    def angle_rad(self) -> float:
+        return self._angle
+    
+    
+    @angle_rad.setter
+    def angle_rad(self, value: float) -> None:
+        self._angle = value
         
         
     @property
@@ -34,3 +55,8 @@ class DistanceSensor:
         """ Return the distance read by the sensor, normalized to the [0, 1] range. """
         return self.distance / 70
     
+    
+    def get_vector(self, normalize: bool=False) -> Vec2:
+        """ Return a new vector from the current distance reading. """
+        dist = self.distance_norm if normalize else self.distance
+        return self.position + Vec2(dist * cos(self.angle_rad), dist * sin(self.angle_rad))

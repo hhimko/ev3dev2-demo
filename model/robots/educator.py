@@ -12,15 +12,16 @@ from bases import Robot
 
 
 class EducatorRobot(Robot):
-    ''' Robot wrapper for basic ev3dev2 functionality.
+    """ Robot wrapper for basic ev3dev2 functionality.
     
-        EducatorRobot assumes it's run on a real LEGO MINDSTORMS EV3 Educator robot. '''
+        EducatorRobot assumes it's run on a real LEGO MINDSTORMS EV3 Educator robot. 
+    """
         
     PULSES_PER_REVOLUTION = 360 # wheel encoder pulses per full rotation
     WHEEL_RADIUS = 2.6  
     TRACK_WIDTH = 12
     
-    def __init__(self, position: Optional[Point]=None, heading_angle: float = 0, speed = 50):
+    def __init__(self, position: Optional[Point]=None, heading_angle: float=0, speed=50):
         if position is None:
             position = Point(0, 0)
         bounds = Circle(position, radius=self.TRACK_WIDTH/2)
@@ -30,7 +31,7 @@ class EducatorRobot(Robot):
         self._drive = MoveSteering(OUTPUT_A, OUTPUT_D)
         
         
-    def update_position(self):
+    def update_position(self) -> None:
         dist_left, dist_right = self._get_wheel_dists()
         dist_center = (dist_right + dist_left) / 2
         
@@ -41,11 +42,11 @@ class EducatorRobot(Robot):
         self.angle = radians_normalize(self.angle)
         
         
-    def move(self, direction: float):
+    def move(self, direction: float) -> None:
         self._drive.on(clamp(direction, lower=-100, upper=100), self.speed)
         
         
-    def stop(self):
+    def stop(self) -> None:
         self._drive.off()
         
         

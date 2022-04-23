@@ -4,6 +4,7 @@ from model.sensors import DistanceSensor
 from controllers import AOController
 from model.geometry import Point
 
+
 from ev3dev2.sensor import INPUT_1, INPUT_2, INPUT_3 # type: ignore
 from ev3dev2.sensor.lego import UltrasonicSensor, InfraredSensor # type: ignore
 from ev3dev2.button import Button # type: ignore
@@ -25,7 +26,6 @@ robot = SimulatorRobot()
 with AOController(robot) as controller:
      while not button.enter:
         # call AOController.update on each sensor to update the robots heading vector based on sensor readings
-        for sensor in sensors:
-            controller.update(sensor)
+        controller.update(sensors)
             
         print("heading: (x={:0.3f}, y={:0.3f})".format(*controller.heading.coords))
