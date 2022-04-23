@@ -1,6 +1,6 @@
 from __future__ import annotations
-from math import sin, cos, radians
-from typing import Tuple
+from typing import Tuple, Union
+from math import sin, cos
 
 
 class Vec2:
@@ -30,6 +30,15 @@ class Vec2:
     
     def __sub__(self, other: Vec2) -> Vec2:
         return Vec2(self.x - other.x, self.y - other.y)
+    
+    def __mul__(self, other: Union[Vec2, float]) -> Vec2:
+        if isinstance(other, Vec2):
+            return Vec2(self.x * other.x, self.y * other.y)
+        return Vec2(other * self.x, other * self.y)
+    
+    
+    def __rmul__(self, other: Union[Vec2, float]) -> Vec2:
+        return self.__mul__(other)
     
     
     def __repr__(self):

@@ -21,7 +21,7 @@ class AOController(GTGController):
         self._reset_heading()
         
         for sensor in sensors:
-            self.heading += self._get_sensor_vector(sensor)
+            self.heading += self._get_sensor_vector(sensor) - 1.5 * sensor.position
             
         super().gotogoal(self.heading)
         
