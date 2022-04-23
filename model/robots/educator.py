@@ -1,5 +1,5 @@
 from math import sin, cos, pi as PI
-from typing import Tuple
+from typing import Tuple, Optional
 
 try:
     from ev3dev2.motor import MoveSteering, OUTPUT_A, OUTPUT_D # type: ignore
@@ -20,7 +20,9 @@ class EducatorRobot(Robot):
     WHEEL_RADIUS = 2.6  
     TRACK_WIDTH = 12
     
-    def __init__(self, position: Point, heading_angle: float = 0, speed = 50):
+    def __init__(self, position: Optional[Point]=None, heading_angle: float = 0, speed = 50):
+        if position is None:
+            position = Point(0, 0)
         bounds = Circle(position, radius=self.TRACK_WIDTH/2)
         super().__init__(bounds, heading_angle, speed)
         
