@@ -1,4 +1,3 @@
-from __future__ import annotations
 from typing import Tuple, Union
 from math import sin, cos
 
@@ -15,7 +14,7 @@ class Vec2:
         return self.x, self.y
     
     
-    def rotated(self, angle: float) -> Vec2:
+    def rotated(self, angle: float) -> "Vec2":
         """ Return a new Vec2 object rotated by `angle` radians. """
         _sin, _cos = sin(angle), cos(angle)
          
@@ -24,20 +23,20 @@ class Vec2:
         return Vec2(nx, ny)
     
     
-    def __add__(self, other: Vec2) -> Vec2:
+    def __add__(self, other: "Vec2") -> "Vec2":
         return Vec2(self.x + other.x, self.y + other.y)
     
     
-    def __sub__(self, other: Vec2) -> Vec2:
+    def __sub__(self, other: "Vec2") -> "Vec2":
         return Vec2(self.x - other.x, self.y - other.y)
     
-    def __mul__(self, other: Union[Vec2, float]) -> Vec2:
-        if isinstance(other, Vec2):
+    def __mul__(self, other: Union["Vec2", float]) -> "Vec2":
+        if isinstance(other, type(self)):
             return Vec2(self.x * other.x, self.y * other.y)
-        return Vec2(other * self.x, other * self.y)
+        return Vec2(other * self.x, other * self.y) # type: ignore
     
     
-    def __rmul__(self, other: Union[Vec2, float]) -> Vec2:
+    def __rmul__(self, other: Union["Vec2", float]) -> "Vec2":
         return self.__mul__(other)
     
     

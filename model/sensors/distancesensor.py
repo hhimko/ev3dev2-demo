@@ -56,7 +56,8 @@ class DistanceSensor:
         return self.distance / 70
     
     
-    def get_vector(self, normalize: bool=False) -> Vec2:
+    def get_vector(self, normalize: bool = False) -> Vec2:
         """ Return a new vector from the current distance reading. """
         dist = self.distance_norm if normalize else self.distance
         return self.position + Vec2(dist * cos(self.angle_rad), dist * sin(self.angle_rad))
+    
