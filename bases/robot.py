@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from model.geometry import Circle, Point
+from model.geometry import Circle, Vec2
 
 
 class Robot(ABC):
@@ -13,7 +13,7 @@ class Robot(ABC):
     
     
     @property
-    def position(self) -> Point:
+    def position(self) -> Vec2:
         return self.geometry.position
     
     

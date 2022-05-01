@@ -21,9 +21,14 @@ class AOController(GTGController):
         self._reset_heading()
         
         for sensor in sensors:
-            self.heading += self._get_sensor_vector(sensor) - 1.5 * sensor.position
+            self.heading += self._get_sensor_vector(sensor) # - 2 * sensor.position  # sensor pos should be rotated here by the robot angle? 
             
-        super().gotogoal(self.heading)
+        # try this?
+        bias = 10
+        self.heading -= Vec2(bias, 0).rotated(self.robot.angle)
+            
+        # should prob debug this without heading being relative to the robot position 
+        super().gotogoal(self.robot.position + self.heading)
         
         
     def execute(self, *args, **kwargs) -> None:
@@ -36,7 +41,7 @@ class AOController(GTGController):
         
         
     def _get_sensor_vector(self, sensor: DistanceSensor) -> Vec2:
-        return self.robot.position + sensor.get_vector().rotated(self.robot.angle)
+        return sensor.get_vector().rotated(self.robot.angle)
         
         
     def _on_enter(self):
