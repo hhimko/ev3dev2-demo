@@ -14,9 +14,9 @@ button = Button()
 
 # define robot sensors which will be used to measure distance from obstacles
 sensors = (
-    DistanceSensor(InfraredSensor(INPUT_1), position=Point(5, -5), angle=-60),
+    DistanceSensor(InfraredSensor(INPUT_1), position=Point(2.5, -3), angle=-60),
     DistanceSensor(UltrasonicSensor(INPUT_2), position=Point(3, 0), angle=0),
-    DistanceSensor(InfraredSensor(INPUT_3), position=Point(5, 5), angle=60)
+    DistanceSensor(InfraredSensor(INPUT_3), position=Point(2.5, 3), angle=60)
 )
 
 # create a robot, that we'll be controlling with an avoid-obstacles controller
