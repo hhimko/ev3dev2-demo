@@ -7,7 +7,7 @@ from ev3dev2.sensor.lego import UltrasonicSensor, InfraredSensor # type: ignore
         
 
 class DistanceSensor:
-    def __init__(self, sensor: Union[UltrasonicSensor, InfraredSensor], position: Union[Vec2, Tuple[int, int]], angle: int=0):
+    def __init__(self, sensor: Union[UltrasonicSensor, InfraredSensor], position: Union[Vec2, Tuple[int, int]], angle: int):
         self.sensor = sensor
          
         if isinstance(position, tuple):

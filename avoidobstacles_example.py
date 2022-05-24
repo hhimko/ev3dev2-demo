@@ -14,18 +14,20 @@ button = Button()
 
 # define robot sensors which will be used to measure distance from obstacles
 sensors = (
-    DistanceSensor(InfraredSensor(INPUT_1), position=Point(2.5, -3), angle=-60),
-    DistanceSensor(UltrasonicSensor(INPUT_2), position=Point(3, 0), angle=0),
-    DistanceSensor(InfraredSensor(INPUT_3), position=Point(2.5, 3), angle=60)
+    DistanceSensor(InfraredSensor(INPUT_1), position=Point(7, -7), angle=60),
+    DistanceSensor(UltrasonicSensor(INPUT_2), position=Point(7, 0), angle=0),
+    DistanceSensor(InfraredSensor(INPUT_3), position=Point(7, 7), angle=-60)
 )
+weights = (1, 2, 1)
 
 # create a robot, that we'll be controlling with an avoid-obstacles controller
-robot = EducatorRobot(speed=20)
+robot = EducatorRobot(speed=60)
 
-with AOController(robot) as controller:
+with AOController(robot, bias=50, P=100) as controller:
      while not button.enter:
         # call AOController.update on each sensor to update the robots heading vector based on sensor readings
-        controller.update(sensors)
+        controller.update(sensors, weights)
             
-        print("heading: (x={:07.3f}, y={:07.3f})".format(*controller.heading.coords))
+        print(tuple(sensor.distance for sensor in sensors))
+        # print("heading: (x={:07.3f}, y={:07.3f})".format(*controller.heading.coords))
     

@@ -1,4 +1,4 @@
-from typing import Sequence
+from typing import Sequence, Optional
 
 from controllers import GTGController
 from model.sensors import DistanceSensor
@@ -11,23 +11,23 @@ class AOController(GTGController):
         AOController takes a list of DistanceSensor objects and composes their readings to create
         a 2D space coordinate point, which is in turn used as a heading vector for GTGController.
     """
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, bias: int = 50, **kwargs):
         super().__init__(*args, **kwargs)
         self.heading = Vec2(0, 0)
+        self.bias = bias
         
         
-    def update(self, sensors: Sequence[DistanceSensor]) -> None:
+    def update(self, sensors: Sequence[DistanceSensor], weights: Optional[Sequence[float]] = None) -> None:
         """ Update the robot heading vector by reading DistanceSensor objects passed as arguments. """
         self._reset_heading()
+        if not weights:
+            weights = (1 for _ in sensors)
         
-        for sensor in sensors:
-            self.heading += self._get_sensor_vector(sensor) # - 2 * sensor.position  # sensor pos should be rotated here by the robot angle? 
+        for sensor, w in zip(sensors, weights):
+            self.heading += self._get_sensor_vector(sensor) * w
             
-        # try this?
-        bias = 10
-        self.heading -= Vec2(bias, 0).rotated(self.robot.angle)
+        self.heading -= Vec2(self.bias, 0).rotated(self.robot.angle)
             
-        # should prob debug this without heading being relative to the robot position 
         super().gotogoal(self.robot.position + self.heading)
         
         
