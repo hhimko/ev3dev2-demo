@@ -21,7 +21,7 @@ class AOController(GTGController):
         """ Update the robot heading vector by reading DistanceSensor objects passed as arguments. """
         self._reset_heading()
         if not weights:
-            weights = (1 for _ in sensors)
+            weights = tuple(1 for _ in sensors)
         
         for sensor, w in zip(sensors, weights):
             self.heading += self._get_sensor_vector(sensor) * w
