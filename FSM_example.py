@@ -9,6 +9,10 @@ from ev3dev2.sensor.lego import UltrasonicSensor, InfraredSensor # type: ignore
 from ev3dev2.button import Button # type: ignore
 
 
+MAX_PROXIMITY_TO_OBSTACLE  = 15.0  
+MIN_DISTANCE_FROM_OBSTACLE = 25.0
+
+
 # instanciate an ev3dev2.Button object to let us control the robot
 button = Button()
 
@@ -28,22 +32,41 @@ weights = (1, 2, 1)
 # create a robot, that we'll be controlling
 robot = EducatorRobot(speed=60)
 
-
 STATE_GTG = GTGController(robot)
 STATE_AO  = AOController(robot, bias=50, P=100)
-
 current_state = STATE_GTG
 
-with current_state as controller:
-    while not button.enter:
-        if isinstance(controller, AOController):
-            # call AOController.update on each sensor to update the robots heading vector based on sensor readings
-            controller.update(sensors, weights)
-                
-            print(tuple(sensor.distance for sensor in sensors))
-            # print("heading: (x={:07.3f}, y={:07.3f})".format(*controller.heading.coords))
 
-        elif isinstance(controller, GTGController):
+curr_waypoint_idx = 0
+while curr_waypoint_idx < len(waypoints):
+
+    with current_state as controller:
+        if isinstance(controller, GTGController):
+            curr_waypoint = waypoints[curr_waypoint_idx]
+            print("[INFO] Moving to {}..".format(curr_waypoint))
+            
+            while not button.enter:
+                controller.gotogoal(curr_waypoint)
+                
+                if min(s.distance for s in sensors) <= MAX_PROXIMITY_TO_OBSTACLE:
+                    print("[INFO] Avoiding Obstacle")
+                    current_state = STATE_AO
+                    break
+                
+                if controller.reached(curr_waypoint):
+                    print("[INFO] Waypoint successfully reached!\n")
+                    curr_waypoint_idx += 1
+                    break
+            
+        elif isinstance(controller, AOController):
+            while not button.enter:
+                controller.update(sensors, weights)
+                
+                if min(s.distance for s in sensors) >= MIN_DISTANCE_FROM_OBSTACLE:
+                    print("[INFO] Going To Goal")
+                    current_state = STATE_GTG
+                    break
+
 
 
 # with GTGController(robot) as controller:
